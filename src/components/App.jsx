@@ -21,7 +21,7 @@ export class App extends Component {
   };
 
   handleIncrement = option => {
-    this.setState(prevState => ({      
+    this.setState(prevState => ({
       [option]: prevState[option] + 1,
     }));
   };
@@ -32,25 +32,25 @@ export class App extends Component {
     const { good, neutral, bad } = this.state;
     return (
       <>
-        <Section title="Please leave feedback"></Section>
-        <FeedbackOptions
-          options={this.state}
-          onLeaveFeedback={this.handleIncrement}
-        />
-
-        <Section title="Statistics"></Section>
-
-        {total === 0 ? (
-          <Notification message="There is no feedback" />
-        ) : (
-          <Statistics
-            good={good}
-            neutral={neutral}
-            bad={bad}
-            total={total}
-            positivePercentage={feedbackPercentage}
+        <Section title="Please leave feedback">
+          <FeedbackOptions
+            options={this.state}
+            onLeaveFeedback={this.handleIncrement}
           />
-        )}
+        </Section>
+        <Section title="Statistics">
+          {total === 0 ? (
+            <Notification message="There is no feedback" />
+          ) : (
+            <Statistics
+              good={good}
+              neutral={neutral}
+              bad={bad}
+              total={total}
+              positivePercentage={feedbackPercentage}
+            />
+          )}
+        </Section>
       </>
     );
   }

@@ -1,8 +1,14 @@
 import PropTypes from 'prop-types';
-import { Title } from './Section.styled.jsx';
 
-export function Section({ title }) {
-  return <Title>{title}</Title>;
+import { Block, Title } from './Section.styled.jsx';
+
+export function Section({ title, children }) {
+  return (
+    <Block>
+      <Title>{title}</Title>
+      {children}
+    </Block>
+  );
 }
 
 Section.propTypes = {
