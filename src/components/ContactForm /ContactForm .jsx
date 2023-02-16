@@ -1,32 +1,42 @@
-import { Component } from 'react';
+import { useState} from 'react';
 import { Button, Input, Form, Label } from './ContactForm .styled';
 
-export class ContactForm extends Component {
-  state = {
-    name: '',
-    number: '',
-  };
-  inputChange = event => {
+export function ContactForm({onSubmit}) {
+ 
+  const [name, setName] = useState('');
+  const [number, setNumber] = useState('');
+
+ const inputChange = event => {
     const { name, value } = event.target;
-    this.setState({ [name]: value });
+   switch (name) {
+      case 'name':
+        setName(value);
+        break;     
+      case 'number':
+        setNumber(value);
+        break;
+      default:
+        break;
+    }
   };
-  resetForm = () => {
-    this.setState({ name: '', number: '' });
+  const resetForm = () => {   
+    setName('');
+    setNumber('');
   };
-  handleSubmit = event => {
+  const handleSubmit = event => {
     event.preventDefault();
-    this.props.onSubmit(this.state);
-    this.resetForm();
+    onSubmit({name, number});
+    resetForm();
   };
 
-  render() {
+  
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Label>
           Name
           <Input
-            onChange={this.inputChange}
-            value={this.state.name}
+            onChange={inputChange}
+            value={name}
             type="text"
             name="name"
             pattern="^[a-zA-Zа-яА-Я]+(([' -][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
@@ -37,8 +47,8 @@ export class ContactForm extends Component {
         <Label>
           Number
           <Input
-            onChange={this.inputChange}
-            value={this.state.number}
+            onChange={inputChange}
+            value={number}
             type="tel"
             name="number"
             pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
@@ -50,4 +60,4 @@ export class ContactForm extends Component {
       </Form>
     );
   }
-}
+
